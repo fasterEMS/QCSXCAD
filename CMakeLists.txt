@@ -8,7 +8,10 @@ ENDIF()
 
 PROJECT( QCSXCAD CXX)
 
-cmake_minimum_required(VERSION 2.8)
+# In CMake 4, 3.10 is deprecated and 3.5 has been removed.
+# use 3.0...3.10 so all of these versions are acceptable as min. version.
+# https://cmake.org/cmake/help/latest/command/cmake_minimum_required.html
+cmake_minimum_required(VERSION 3.0...3.10)
 
 # https://cmake.org/cmake/help/v3.0/policy/CMP0020.html
 if(POLICY CMP0020)
@@ -32,13 +35,13 @@ set(VERSION "v${LIB_VERSION_STRING}")
 IF(EXISTS ${PROJECT_SOURCE_DIR}/.git )
   FIND_PACKAGE(Git)
   # Get the latest abbreviated commit hash of the working branch
-  execute_process(
-    COMMAND ${GIT_EXECUTABLE} describe --tags
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    OUTPUT_VARIABLE GITREV
-  )
+  #execute_process(
+  #  COMMAND ${GIT_EXECUTABLE} describe --tags
+  #  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  #  OUTPUT_VARIABLE GITREV
+  #)
   set(VERSION ${GITREV})
-  string(STRIP ${VERSION} VERSION)
+  #string(STRIP ${VERSION} VERSION)
   message(STATUS "Found Git repository, ${PROJECT_NAME} version tag: ${VERSION}")
 ENDIF()
 
